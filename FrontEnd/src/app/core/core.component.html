@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+    <span style="margin-right: 2%;">To-Do List</span>
+</mat-toolbar>
+
+<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1%; margin-left: 1%">
+    <mat-form-field appearance="fill" style="margin-left: 1%;">
+        <mat-label>Name</mat-label>
+        <input matInput text [(ngModel)]="tempWork.name" [matAutocomplete]="auto" required>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let work of tasks" [value]="work.name">
+                {{work.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin-left: 1%;">
+        <mat-label>Task</mat-label>
+        <input matInput text [(ngModel)]="tempWork.task">
+    </mat-form-field>
+    <button mat-raised-button color="primary" style="margin-bottom: 1%; margin-left: 1%"
+        (click)="addTask()">Add</button>
+    <button mat-raised-button color="accent" style="margin-bottom: 1%; margin-left: 1%"
+        (click)="updateTask()">Update</button>
+    <button mat-raised-button color="warn" style="margin-bottom: 1%; margin-left: 1%"
+        (click)="deleteTask()">Delete</button>
+</div>
+
+<mat-card fxLayout="row wrap" fxLayoutGap="2%"
+    style="margin: 2% 2% 2% 2%; height: calc(100% - 25vh);overflow-x:hidden; overflow-y: auto; background-color: #ffffff3a;">
+    <div *ngFor="let work of tasks" style="height:fit-content;">
+        <app-work [work]="work" (newEvent)="deleteFromTask($event)"></app-work>
+    </div>
+</mat-card>
